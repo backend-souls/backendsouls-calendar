@@ -165,6 +165,30 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2bd12c1caf447e69cd4528f47f94d203fd2582878ecb9e9465484c4148a8223"
 
 [[package]]
+name = "calendar-api"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "axum",
+ "config",
+ "log",
+ "serde",
+ "serde-aux",
+ "serde_json",
+ "serde_with",
+ "thiserror",
+ "tokio",
+ "tracing",
+ "tracing-bunyan-formatter",
+ "tracing-log",
+ "tracing-subscriber",
+]
+
+[[package]]
+name = "calendar-domain"
+version = "0.1.0"
+
+[[package]]
 name = "cc"
 version = "1.0.83"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -768,26 +792,6 @@ name = "regex-syntax"
 version = "0.7.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dbb5fb1acd8a1a18b3dd5be62d25485eb770e05afb408a9627d14d451bae12da"
-
-[[package]]
-name = "rfc8984-calendar"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "axum",
- "config",
- "log",
- "serde",
- "serde-aux",
- "serde_json",
- "serde_with",
- "thiserror",
- "tokio",
- "tracing",
- "tracing-bunyan-formatter",
- "tracing-log",
- "tracing-subscriber",
-]
 
 [[package]]
 name = "rustc-demangle"
