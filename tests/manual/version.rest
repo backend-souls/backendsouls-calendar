@@ -1,0 +1,15 @@
+###
+GET /v1/version
+Host: {{api_root}}
+
+###
+GET /v2/version
+Host: {{api_root}}
+
+###
+GET /v3/version
+Host: {{api_root}}
+
+###
+GET /v4/version
+Host: {{api_root}}
