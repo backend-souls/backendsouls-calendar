@@ -2,9 +2,11 @@ use axum::http::StatusCode;
 use axum::response::IntoResponse;
 use axum::routing::get;
 use axum::{Json, Router};
-use rfc8984_calendar::configuration::configuration;
-use rfc8984_calendar::telemetry::{init_subscriber, subscriber};
-use rfc8984_calendar::version::version;
+
+use calendar_api::configuration::configuration;
+use calendar_api::telemetry::{init_subscriber, subscriber};
+use calendar_api::version::version;
+
 use serde::Serialize;
 use std::net::SocketAddr;
 

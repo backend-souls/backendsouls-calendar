@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  app:
+    container_name: calendar
+    build:
+      context: ..
+      dockerfile: deploy/dockerfiles/calendar-api.Dockerfile
+      args:
+        APP_ENV: local
+    env_file:
+      - ../.env
+    ports:
+      - "8080:8080"
