@@ -2,15 +2,18 @@
 
 ## Dependencies
 
-1. `docker`
-
-2. [cargo-make](https://sagiegurari.github.io/cargo-make/#usage-task-dependencies-alias)
+1. [cargo-make](https://sagiegurari.github.io/cargo-make/#usage-task-dependencies-alias)
     ```bash
       cargo install --force cargo-make
     ```
-3. [cargo-nextest](https://nexte.st/index.html)
+2. [cargo-nextest](https://nexte.st/index.html)
     ```bash
       cargo install cargo-nextest --locked
+    ```
+
+3. [cargo-watch](https://watchexec.github.io/#cargo-watch)
+    ```bash
+      $ cargo install cargo-watch
     ```
 
 ## Run Local
@@ -21,7 +24,10 @@
 
 ## Tests
 ```bash
-  cargo make docker
+  cargo make test
+
+  // or use watch
+  cargo make test-watch
 ```
 
 ## Contact
