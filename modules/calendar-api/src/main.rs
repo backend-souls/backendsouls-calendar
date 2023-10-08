@@ -9,10 +9,11 @@ use calendar_api::version::version;
 
 use serde::Serialize;
 use std::net::SocketAddr;
+use std::str::FromStr;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    let subscriber = subscriber("rfc8984_calendar".into(), "info".into(), std::io::stdout);
+    let subscriber = subscriber("backendsouls_calendar".into(), "info".into(), std::io::stdout);
 
     init_subscriber(subscriber);
 
@@ -23,7 +24,10 @@ async fn main() -> anyhow::Result<()> {
         .route("/health", get(health));
 
     // run it
-    let addr = SocketAddr::from(([0, 0, 0, 0], configuration.application.port));
+    let addr = SocketAddr::from_str(&format!(
+        "{}:{}",
+        configuration.application.host, configuration.application.port
+    ))?;
 
     tracing::info!("listening on {}", addr);
 

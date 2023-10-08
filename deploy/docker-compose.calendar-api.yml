@@ -3,12 +3,15 @@ version: '3'
 services:
   app:
     container_name: calendar
+    command: bash -c "cargo watch -x run"
     build:
       context: ..
-      dockerfile: deploy/dockerfiles/calendar-api.Dockerfile
+      dockerfile: deploy/dockerfiles/calendar-api.dev.Dockerfile
       args:
         APP_ENV: local
     env_file:
       - ../.env
+    volumes:
+      - ..:/app
     ports:
       - "8080:8080"
