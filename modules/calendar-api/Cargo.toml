@@ -4,6 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+calendar-domain = { path = "../calendar-domain" }
+
 axum = { workspace = true }
 tokio = { workspace = true }
 

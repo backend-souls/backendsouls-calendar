@@ -7,17 +7,22 @@ use calendar_api::configuration::configuration;
 use calendar_api::telemetry::{init_subscriber, subscriber};
 use calendar_api::version::version;
 
+use calendar_api::environment::Environment;
 use serde::Serialize;
 use std::net::SocketAddr;
 use std::str::FromStr;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    let subscriber = subscriber("backendsouls_calendar".into(), "info".into(), std::io::stdout);
+    let environment: Environment = std::env::var("APP_ENVIRONMENT")
+        .unwrap_or_else(|_| "local".into())
+        .try_into()
+        .expect("Failed to parse APP_ENVIRONMENT.");
 
+    let subscriber = subscriber("backendsouls_calendar".into(), "info".to_string(), std::io::stdout);
     init_subscriber(subscriber);
 
-    let configuration = configuration().expect("Failed to read configuration.");
+    let configuration = configuration(environment).expect("Failed to read configuration.");
 
     let app = Router::new()
         .route("/:version/version", get(version))
@@ -30,7 +35,6 @@ async fn main() -> anyhow::Result<()> {
     ))?;
 
     tracing::info!("listening on {}", addr);
-
     axum::Server::bind(&addr).serve(app.into_make_service()).await.unwrap();
 
     Ok(())
@@ -41,6 +45,7 @@ pub struct Message {
     code: u16,
     message: String,
 }
+
 pub async fn health() -> impl IntoResponse {
     let message = Message {
         code: 200,
