@@ -3,10 +3,10 @@ version: '3'
 services:
   app:
     container_name: calendar
-    command: bash -c "cargo watch -x run"
+    command: bash -c "cargo watch -x run | bunyan"
     build:
       context: ..
-      dockerfile: deploy/dockerfiles/calendar-api.dev.Dockerfile
+      dockerfile: deploy/dockerfiles/dev.Dockerfile
       args:
         APP_ENV: local
     env_file:

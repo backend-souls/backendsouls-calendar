@@ -14,7 +14,7 @@ dependencies = [
 command = "docker"
 args = [
     "compose",
-    "-f", "./deploy/docker-compose.calendar-api.yml",
+    "-f", "./deploy/docker-compose.dev.yml",
     "up",
     "--build"
 ]
@@ -23,7 +23,7 @@ args = [
 command = "docker"
 args = [
     "compose",
-    "-f", "./deploy/docker-compose.calendar-api.yml",
+    "-f", "./deploy/docker-compose.dev.yml",
     "start"
 ]
 

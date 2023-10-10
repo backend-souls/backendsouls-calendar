@@ -16,6 +16,7 @@ tokio = { version = "1.32.0", features = ["full"] }
 config = { version = "0.13", default-features = false, features = ["yaml"] }
 
 derive_builder = { version = "0.12.0" }
+getset = { version = "0.1.2" }
 
 serde = { version = "1.0.188" }
 serde-aux = { version = "4.2.0" }

@@ -1,3 +1,4 @@
+use crate::environment::Environment;
 use serde_aux::field_attributes::deserialize_number_from_string;
 
 #[derive(serde::Deserialize, Clone)]
@@ -12,14 +13,9 @@ pub struct Settings {
     pub application: ApplicationSettings,
 }
 
-pub fn configuration() -> Result<Settings, config::ConfigError> {
+pub fn configuration(environment: Environment) -> Result<Settings, config::ConfigError> {
     let base_path = std::env::current_dir().expect("Failed to determine the current directory");
     let configuration_directory = base_path.join("configuration");
-
-    let environment: Environment = std::env::var("APP_ENVIRONMENT")
-        .unwrap_or_else(|_| "local".into())
-        .try_into()
-        .expect("Failed to parse APP_ENVIRONMENT.");
 
     let environment_filename = format!("{}.yaml", environment.as_str());
 
@@ -31,43 +27,4 @@ pub fn configuration() -> Result<Settings, config::ConfigError> {
         .build()?;
 
     settings.try_deserialize::<Settings>()
-}
-
-/// The possible runtime environment for our application.
-pub enum Environment {
-    QA,
-    LOCAL,
-    STAGING,
-    PRODUCTION,
-    DEVELOPMENT,
-}
-
-impl Environment {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Environment::QA => "qa",
-            Environment::LOCAL => "local",
-            Environment::STAGING => "staging",
-            Environment::PRODUCTION => "production",
-            Environment::DEVELOPMENT => "development",
-        }
-    }
-}
-
-impl TryFrom<String> for Environment {
-    type Error = String;
-
-    fn try_from(s: String) -> Result<Self, Self::Error> {
-        match s.to_lowercase().as_str() {
-            "qa" => Ok(Self::QA),
-            "local" => Ok(Self::LOCAL),
-            "staging" => Ok(Self::STAGING),
-            "production" => Ok(Self::PRODUCTION),
-            "development" => Ok(Self::DEVELOPMENT),
-            other => Err(format!(
-                "{} is not a supported environment. Use either `local` or `production`.",
-                other
-            )),
-        }
-    }
 }
