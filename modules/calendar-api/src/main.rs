@@ -1,16 +1,13 @@
+use anyhow::Context;
 use axum::http::StatusCode;
 use axum::response::IntoResponse;
-use axum::routing::get;
-use axum::{Json, Router};
-
-use calendar_api::configuration::configuration;
-use calendar_api::telemetry::{init_subscriber, subscriber};
-use calendar_api::version::version;
-
-use calendar_api::environment::Environment;
+use axum::Json;
 use serde::Serialize;
-use std::net::SocketAddr;
-use std::str::FromStr;
+
+use calendar_api::app::CalendarApplication;
+use calendar_api::configuration::configuration;
+use calendar_api::environment::Environment;
+use calendar_api::telemetry::{init_subscriber, subscriber};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -24,18 +21,13 @@ async fn main() -> anyhow::Result<()> {
 
     let configuration = configuration(environment).expect("Failed to read configuration.");
 
-    let app = Router::new()
-        .route("/:version/version", get(version))
-        .route("/health", get(health));
+    //    let app = Router::new()
+    //        .route("/:version/version", get(version))
+    //        .route("/health", get(health));
 
-    // run it
-    let addr = SocketAddr::from_str(&format!(
-        "{}:{}",
-        configuration.application.host, configuration.application.port
-    ))?;
-
-    tracing::info!("listening on {}", addr);
-    axum::Server::bind(&addr).serve(app.into_make_service()).await.unwrap();
+    CalendarApplication::serve(configuration.application)
+        .await
+        .context("could not initialize application routes")?;
 
     Ok(())
 }
