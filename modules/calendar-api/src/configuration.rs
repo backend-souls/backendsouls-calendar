@@ -1,5 +1,6 @@
-use crate::environment::Environment;
 use serde_aux::field_attributes::deserialize_number_from_string;
+
+use crate::environment::Environment;
 
 #[derive(serde::Deserialize, Clone)]
 pub struct ApplicationSettings {
@@ -23,7 +24,11 @@ pub fn configuration(environment: Environment) -> Result<Settings, config::Confi
         .add_source(config::File::from(configuration_directory.join("base.yaml")))
         .add_source(config::File::from(configuration_directory.join(environment_filename)))
         // E.g. `APP_APPLICATION__PORT=3000 would set `settings.application.port`
-        .add_source(config::Environment::with_prefix("APP").prefix_separator("_").separator("__"))
+        .add_source(
+            config::Environment::with_prefix("APP")
+                .prefix_separator("_")
+                .separator("__"),
+        )
         .build()?;
 
     settings.try_deserialize::<Settings>()

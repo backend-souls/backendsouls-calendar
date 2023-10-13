@@ -126,6 +126,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "backendsouls-json-hal"
+version = "0.1.0"
+dependencies = [
+ "derive_builder",
+ "getset",
+ "serde",
+ "serde_json",
+ "serde_with",
+]
+
+[[package]]
+name = "backendsouls-rfc8984"
+version = "0.1.0"
+dependencies = [
+ "uuid",
+]
+
+[[package]]
 name = "backtrace"
 version = "0.3.69"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -170,8 +188,10 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "axum",
+ "backendsouls-json-hal",
  "calendar-domain",
  "config",
+ "derive_builder",
  "log",
  "serde",
  "serde-aux",
@@ -183,6 +203,7 @@ dependencies = [
  "tracing-bunyan-formatter",
  "tracing-log",
  "tracing-subscriber",
+ "uuid",
 ]
 
 [[package]]
@@ -192,6 +213,17 @@ dependencies = [
  "anyhow",
  "derive_builder",
  "getset",
+]
+
+[[package]]
+name = "calendar-utils"
+version = "0.1.0"
+dependencies = [
+ "derive_builder",
+ "getset",
+ "serde",
+ "serde_json",
+ "serde_with",
 ]
 
 [[package]]
@@ -1304,6 +1336,16 @@ name = "unicode-ident"
 version = "1.0.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b"
+
+[[package]]
+name = "uuid"
+version = "1.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "79daa5ed5740825c40b389c5e50312b9c86df53fccd33f281df655642b43869d"
+dependencies = [
+ "getrandom",
+ "serde",
+]
 
 [[package]]
 name = "valuable"

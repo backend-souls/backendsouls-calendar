@@ -1,10 +1,11 @@
+use std::collections::HashMap;
+
 use axum::extract::{FromRequestParts, Path};
 use axum::http::request::Parts;
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
 use axum::{async_trait, Json, RequestPartsExt};
 use serde::Serialize;
-use std::collections::HashMap;
 
 #[tracing::instrument(name = "Testing versions")]
 pub async fn version(version: Version) -> impl IntoResponse {

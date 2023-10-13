@@ -1,4 +1,3 @@
-/// The possible runtime environment for our application.
 #[derive(Clone, Copy)]
 pub enum Environment {
     QA,
